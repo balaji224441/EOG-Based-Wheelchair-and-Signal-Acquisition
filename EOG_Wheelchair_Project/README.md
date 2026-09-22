@@ -1,86 +1,117 @@
 # EOG-Based Wheelchair Control
 
-### Eye-Movement Controlled Assistive Mobility Prototype
+## Eye-Movement Controlled Assistive Mobility Prototype
 
-An Electrooculography (EOG)-based assistive wheelchair prototype that uses intentional eye movements to generate directional movement commands. The system acquires horizontal and vertical EOG signals, processes the signals to identify stable eye-movement patterns, and converts the detected commands into movement of a differential-drive wheelchair prototype.
+An Electrooculography (EOG)-based assistive mobility prototype that uses intentional eye movements to generate directional wheelchair commands. The system acquires horizontal and vertical EOG signals, performs signal conditioning and command validation, and converts recognized eye-movement intentions into movement commands for a differential-drive wheelchair prototype.
 
 ---
 
-## Project Overview
+# Project Overview
 
-Electrooculography (EOG) is a biomedical signal acquisition technique that measures the electrical potential changes associated with eye movement.
+Electrooculography (EOG) is a biomedical signal acquisition technique that measures electrical potential variations associated with eye movements.
 
-This project explores the use of EOG signals as a human-machine interface for assistive mobility.
+This project explores EOG as a hands-free human-machine interface for assistive mobility.
 
-The developed prototype uses horizontal and vertical EOG information to distinguish intentional eye movements and map them to four directional commands:
+The system uses two EOG signal channels:
+
+- Horizontal EOG (H-EOG)
+- Vertical EOG (V-EOG)
+
+The acquired signals are processed to identify intentional eye movements. The recognized eye movement is then converted into a directional command for the wheelchair prototype.
+
+The basic directional command set consists of:
 
 - Forward
 - Backward
 - Left
 - Right
 
-The commands are processed by an Arduino-based control system and used to drive a differential-drive motor platform representing the wheelchair.
+The project combines:
 
-The project focuses on developing a low-cost, non-manual control interface that can be further extended toward assistive mobility applications.
-
----
-
-# Project Objectives
-
-The main objectives of the project are:
-
-1. Acquire horizontal and vertical EOG signals from electrodes placed around the eyes.
-2. Establish an adaptive baseline for the user's resting eye position.
-3. Reduce signal fluctuations using digital filtering.
-4. Detect intentional eye movements using threshold-based signal processing.
-5. Validate commands using recent signal history and stability checks.
-6. Distinguish horizontal and vertical eye movements.
-7. Convert detected eye movements into directional wheelchair commands.
-8. Control a differential-drive motor prototype.
-9. Provide visual and serial feedback during system operation.
-10. Develop a foundation for future intelligent assistive mobility systems.
+- Biomedical signal acquisition
+- EOG signal processing
+- Digital filtering
+- Threshold-based command recognition
+- Embedded systems
+- Motor control
+- Differential-drive robotics
+- Assistive technology
 
 ---
 
-# System Architecture
+# Project Objective
+
+The primary objective of this project is to develop a low-cost assistive mobility interface in which intentional eye movements can be used to control the direction of a wheelchair prototype.
+
+The system is designed to:
+
+1. Acquire horizontal and vertical EOG signals.
+2. Establish a resting baseline for the user.
+3. Remove baseline offset from the acquired signals.
+4. Smooth the EOG signals using a moving-average filter.
+5. Detect sufficiently strong EOG activity.
+6. Confirm the persistence of the detected signal.
+7. Verify temporal stability using recent signal history.
+8. Determine whether the movement is primarily horizontal or vertical.
+9. Identify the intended wheelchair direction.
+10. Execute the corresponding motor command.
+11. Prevent conflicting commands during movement.
+
+---
+
+# System Concept
+
+The complete system can be represented as:
 
 ```text
-             EOG Electrodes
-                    |
-                    v
-          EOG Signal Acquisition
-                    |
-          +---------+---------+
-          |                   |
-          v                   v
-   Horizontal EOG       Vertical EOG
-          |                   |
-          +---------+---------+
-                    |
-                    v
-        Adaptive Baseline Calibration
-                    |
-                    v
-          Moving Average Filtering
-                    |
-                    v
-          Threshold-Based Detection
-                    |
-                    v
-          Stability / History Check
-                    |
-                    v
-           Axis Dominance Check
-                    |
-                    v
-          Directional Command
-                    |
-          +---------+---------+
-          |         |         |
-          v         v         v
-       Motor     LED       Serial
-      Control   Feedback   Monitor
-          |
-          v
-   Differential-Drive
-      Wheelchair
+              USER
+                |
+                |
+          Eye Movements
+                |
+                v
+        +---------------+
+        | EOG Electrodes|
+        +---------------+
+                |
+                v
+       EOG Signal Acquisition
+                |
+        +-------+-------+
+        |               |
+        v               v
+   Horizontal EOG   Vertical EOG
+        |               |
+        +-------+-------+
+                |
+                v
+      Adaptive Baseline
+          Calibration
+                |
+                v
+      Moving Average Filter
+                |
+                v
+       Threshold Evaluation
+                |
+                v
+      Persistence Confirmation
+                |
+                v
+       Stability Verification
+                |
+                v
+       Axis Dominance Check
+                |
+                v
+       Direction Recognition
+                |
+                v
+       Wheelchair Command
+                |
+                v
+       Motor Control System
+                |
+                v
+      Differential-Drive
+         Wheelchair
