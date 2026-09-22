@@ -17,7 +17,6 @@ void setup() {
 
   nextSampleTime = micros();
 }
-
 void loop() {
 
   if ((int32_t)(micros() - nextSampleTime) >= 0) {
